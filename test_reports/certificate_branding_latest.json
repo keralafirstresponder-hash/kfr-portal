@@ -1,0 +1,131 @@
+{
+  "api": "https://responder-registry.preview.emergentagent.com/api",
+  "steps": [
+    {
+      "name": "admin_login",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzRhODRkMzJkNTVjYzU1IiwiZXhwIjoxNzg0NzgzOTk0LCJpYXQiOjE3ODQxNzkxOTR9.m_3YsTKKwgjiPpAn4l4t2DpEd1laSvyWg95dhxvlQy8\",\"admin\":{\"id\":\"934a84d32d55"
+      }
+    },
+    {
+      "name": "list_events",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 1
+      }
+    },
+    {
+      "name": "admin_questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 15
+      }
+    },
+    {
+      "name": "candidate_register",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"eb019c72fd95ba9b\"}",
+        "name": "QA Branding a85d5a96",
+        "event": {
+          "id": "aeec75a9951199e0",
+          "name": "KFR Traing Session : MAR IVANIOUS,TVM",
+          "training_date": "2026-07-22",
+          "place": "MAR IVANIOUS",
+          "trainer": "Xyz",
+          "organisation": "Aster Medcity",
+          "created_at": "2026-07-16T04:48:38.258046+00:00"
+        }
+      }
+    },
+    {
+      "name": "generate_test",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":1,\"failed\":0,\"total\":1}"
+      }
+    },
+    {
+      "name": "candidate_has_pending_token",
+      "ok": true,
+      "details": {
+        "status": "pending",
+        "token_len": 32
+      }
+    },
+    {
+      "name": "get_test",
+      "ok": true,
+      "details": {
+        "status": 200
+      }
+    },
+    {
+      "name": "submit_pass",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"score\":10,\"passed\":true,\"certificate_id\":\"KFR-2026-1390F7\",\"total\":10}"
+      }
+    },
+    {
+      "name": "cert_info",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"candidate_name\":\"QA Branding a85d5a96\",\"certificate_id\":\"KFR-2026-1390F7\",\"training_date\":\"2026-07-22\",\"training_place\":\"MAR IVANIOUS\",\"organisation\":\"Aster Medcity\",\"score\":10}"
+      }
+    },
+    {
+      "name": "cert_pdf_download",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "content_type": "application/pdf",
+        "bytes": 163593,
+        "path": "/app/test_reports/bug_assets/generated_certificate_a85d5a96.pdf"
+      }
+    },
+    {
+      "name": "render_pdf_png",
+      "ok": true,
+      "details": {
+        "path": "/app/test_reports/bug_assets/generated_certificate_a85d5a96.png",
+        "width": 1174,
+        "height": 830
+      }
+    },
+    {
+      "name": "background_matches_template_outside_dynamic_fields",
+      "ok": true,
+      "details": {
+        "mean_rgb_abs_diff": 2.5875491524955563
+      }
+    }
+  ],
+  "candidate_id": "eb019c72fd95ba9b",
+  "test_token": "cL6__mQOSh23eDmte5WPGfrIK-K9wJaY",
+  "dynamic_values": {
+    "candidate_name": "QA Branding a85d5a96",
+    "cert_id": "KFR-2026-1390F7",
+    "training_date": "2026-07-22",
+    "training_place": "MAR IVANIOUS"
+  },
+  "cert_info": {
+    "candidate_name": "QA Branding a85d5a96",
+    "certificate_id": "KFR-2026-1390F7",
+    "training_date": "2026-07-22",
+    "training_place": "MAR IVANIOUS",
+    "organisation": "Aster Medcity",
+    "score": 10
+  },
+  "pdf_path": "/app/test_reports/bug_assets/generated_certificate_a85d5a96.pdf",
+  "png_path": "/app/test_reports/bug_assets/generated_certificate_a85d5a96.png",
+  "crop_dir": "/app/test_reports/bug_assets"
+}

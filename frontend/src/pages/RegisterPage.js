@@ -77,9 +77,7 @@ export default function RegisterPage() {
       <nav className="kfr-navy">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-kfr-red flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" fill="white" />
-            </div>
+            <img src="/assets/kfr-shield.png" alt="KFR" className="h-11 w-auto" />
             <div>
               <div className="text-white font-display font-bold text-lg leading-none">Kerala First Responders</div>
               <div className="text-[10px] uppercase tracking-[0.25em] text-kfr-gold mt-1">Mission 100K</div>

@@ -24,7 +24,7 @@ export default function AdminLayout() {
     <div className="min-h-screen bg-slate-50 flex">
       <aside className="w-64 kfr-navy text-white flex flex-col shrink-0 sticky top-0 h-screen">
         <Link to="/admin" className="p-6 border-b border-white/10 flex items-center gap-3" data-testid="side-brand">
-          <div className="w-9 h-9 rounded-md bg-kfr-red flex items-center justify-center"><Heart className="w-4 h-4 text-white" fill="white" /></div>
+          <img src="/assets/kfr-shield.png" alt="KFR" className="h-10 w-auto" />
           <div>
             <div className="font-display font-bold text-sm">Kerala First Responders</div>
             <div className="text-[9px] uppercase tracking-[0.25em] text-kfr-gold mt-0.5">Admin Console</div>

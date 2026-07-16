@@ -37,9 +37,7 @@ export default function AdminLogin() {
         <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-kfr-gold/10 blur-3xl" />
         <div className="relative">
           <div className="flex items-center gap-3 mb-16">
-            <div className="w-10 h-10 rounded-md bg-kfr-red flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" fill="white" />
-            </div>
+            <img src="/assets/kfr-shield.png" alt="KFR" className="h-14 w-auto" />
             <div>
               <div className="text-white font-display font-bold text-lg leading-none">Kerala First Responders</div>
               <div className="text-[10px] uppercase tracking-[0.25em] text-kfr-gold mt-1">Admin Console</div>

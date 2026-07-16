@@ -52,7 +52,7 @@ export default function TestPage() {
       <nav className="kfr-navy">
         <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-md bg-kfr-red flex items-center justify-center"><Heart className="w-4 h-4 text-white" fill="white" /></div>
+            <img src="/assets/kfr-shield.png" alt="KFR" className="h-9 w-auto" />
             <div className="text-white font-display font-semibold">KFR Assessment</div>
           </div>
           <div className="text-white/70 text-sm">Candidate: <span className="text-white font-medium">{data.candidate_name}</span></div>
