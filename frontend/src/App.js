@@ -1,55 +1,50 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "sonner";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import LandingPage from "@/pages/LandingPage";
+import RegisterPage from "@/pages/RegisterPage";
+import AdminLogin from "@/pages/AdminLogin";
+import AdminLayout from "@/components/AdminLayout";
+import AdminDashboard from "@/pages/AdminDashboard";
+import AdminCandidates from "@/pages/AdminCandidates";
+import AdminEvents from "@/pages/AdminEvents";
+import AdminOrganisations from "@/pages/AdminOrganisations";
+import AdminQuestions from "@/pages/AdminQuestions";
+import AdminReports from "@/pages/AdminReports";
+import TestPage from "@/pages/TestPage";
+import CertificatePage from "@/pages/CertificatePage";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+function Protected({ children }) {
+  const { admin, loading } = useAuth();
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-slate-500">Loading…</div>;
+  if (!admin) return <Navigate to="/admin/login" replace />;
+  return children;
+}
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <BrowserRouter>
+        <Toaster position="top-right" richColors />
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/test/:token" element={<TestPage />} />
+          <Route path="/certificate/:token" element={<CertificatePage />} />
+
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<Protected><AdminLayout /></Protected>}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="candidates" element={<AdminCandidates />} />
+            <Route path="events" element={<AdminEvents />} />
+            <Route path="organisations" element={<AdminOrganisations />} />
+            <Route path="questions" element={<AdminQuestions />} />
+            <Route path="reports" element={<AdminReports />} />
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
