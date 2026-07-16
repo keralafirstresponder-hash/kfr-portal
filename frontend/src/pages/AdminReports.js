@@ -111,7 +111,7 @@ function ChartCard({ title, children }) {
     <div className="bg-white border border-slate-200 rounded-xl p-6">
       <div className="text-xs uppercase tracking-widest text-slate-500 font-bold">Chart</div>
       <div className="font-display text-xl text-kfr-navy font-semibold mt-1 mb-6">{title}</div>
-      <div className="h-72">
+      <div className="h-72 min-h-[280px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           {children}
         </ResponsiveContainer>

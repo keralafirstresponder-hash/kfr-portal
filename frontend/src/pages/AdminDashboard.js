@@ -60,7 +60,7 @@ export default function AdminDashboard() {
               <div className="font-display text-xl text-kfr-navy font-semibold mt-1">Registrations by district</div>
             </div>
           </div>
-          <div className="h-72" data-testid="chart-district">
+          <div className="h-72 min-h-[280px] w-full" data-testid="chart-district">
             {data.district.length === 0 ? (
               <EmptyChart label="No registrations yet" />
             ) : (
@@ -80,7 +80,7 @@ export default function AdminDashboard() {
         <div className="bg-white border border-slate-200 rounded-xl p-6">
           <div className="text-xs uppercase tracking-widest text-slate-500 font-bold">Category</div>
           <div className="font-display text-xl text-kfr-navy font-semibold mt-1 mb-6">By category</div>
-          <div className="h-72" data-testid="chart-category">
+          <div className="h-72 min-h-[280px] w-full" data-testid="chart-category">
             {data.category.length === 0 ? (
               <EmptyChart label="No data" />
             ) : (
