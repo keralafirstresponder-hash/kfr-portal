@@ -1,0 +1,143 @@
+{
+  "theme_and_identity": {
+    "project_name": "Kerala First Responders - Mission 100K",
+    "theme": "Medical Authority & Heroic Urgency",
+    "mode": "Hybrid (Light for Dashboard, Dark/Rich Navy for Landing Page Hero)",
+    "description": "A professional, medical-grade CPR training and certification platform. Built to inspire trust, urgency, and community action. Avoid generic tech-startup vibes."
+  },
+  "colors": {
+    "primary": {
+      "navy": "#0B1B3D",
+      "navy_light": "#1A2B56",
+      "navy_dark": "#050E24"
+    },
+    "accent": {
+      "emergency_red": "#E63946",
+      "certificate_gold": "#D4AF37",
+      "aster_green": "#007260"
+    },
+    "neutral": {
+      "background_light": "#F8FAFC",
+      "surface_white": "#FFFFFF",
+      "text_main": "#1E293B",
+      "text_muted": "#64748B",
+      "border": "#E2E8F0"
+    },
+    "status": {
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444"
+    },
+    "prohibited": [
+      "Purple/Violet gradients",
+      "Pure Black #000000",
+      "Muddy transparent grays"
+    ]
+  },
+  "typography": {
+    "fonts": {
+      "headings": "Playfair Display",
+      "body": "Outfit",
+      "monospace": "JetBrains Mono"
+    },
+    "prohibited_fonts": [
+      "Inter",
+      "Roboto",
+      "Open Sans"
+    ],
+    "hierarchy": {
+      "h1": "text-5xl md:text-6xl tracking-tight font-bold",
+      "h2": "text-3xl md:text-4xl tracking-tight font-semibold",
+      "h3": "text-2xl font-medium",
+      "h4": "text-xl font-medium",
+      "body": "text-base leading-relaxed",
+      "labels": "text-xs uppercase tracking-[0.2em] font-bold"
+    }
+  },
+  "layouts": {
+    "landing_page": {
+      "hero": "Left-aligned, dark navy background (bg-[#0B1B3D]) with bold white Playfair Display text. Red CTA button. Subtle grain texture or noise overlay. NOT centered.",
+      "counter_section": "Bento grid mode. High contrast metric cards showing '100K Mission Goal' vs 'Current Trained'.",
+      "how_it_works": "Staggered grid, generous spacing (p-12 to p-24)."
+    },
+    "dashboard": {
+      "structure": "F-pattern. Collapsible left sidebar (Navy background). Top header (White). Content area (Light Gray #F8FAFC).",
+      "metrics_cards": "Top row. 4 cards. Pure white surface, 1px subtle border, no heavy shadow. North Star metric (Total Trained) top left.",
+      "charts": "Recharts. Avoid pie charts (except for Category donut). Use District-wise Bar chart.",
+      "data_tables": "Flat solid surfaces. Crisp borders. Dense padding (p-4) for scanability."
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "Pill-shaped or slightly rounded (rounded-md). Background: Emergency Red (#E63946). Text: White. Hover: Lighter red, subtle translateY(-1px).",
+      "secondary": "Outline button. Border: Certificate Gold or Navy. Text: Navy."
+    },
+    "cards": {
+      "dashboard": "bg-white border border-slate-200 shadow-sm rounded-lg. Hover: shadow-md.",
+      "landing": "Dark cards: bg-[#1A2B56] border border-white/10 text-white."
+    },
+    "forms": {
+      "inputs": "Shadcn UI based. Solid white background. 1px border. Focus state: ring-2 ring-navy-light. NOT native inputs."
+    },
+    "certificate": {
+      "layout": "Deep navy blue background. Gold/Red accents. KFR shield logo. Left side vertical text 'BE A HERO. SAVE A LIFE.' Bottom banner with taglines.",
+      "typography": "Playfair Display for names and titles. Outfit for smaller details."
+    }
+  },
+  "motion": {
+    "interactions": "Hover states on all buttons and cards. Focus rings on inputs.",
+    "page_transitions": "Staggered fade-up for dashboard widgets and landing page sections.",
+    "charts": "Recharts default smooth animations."
+  },
+  "accessibility": {
+    "contrast": "Ensure text over navy background is pure white or high-contrast gold. APCA compliance required.",
+    "focus": "High contrast focus rings (Navy or Gold) on all interactive elements.",
+    "testing": "All interactive and key informational elements MUST include a `data-testid` attribute (e.g., `data-testid=\"register-submit-btn\"`)."
+  },
+  "media": {
+    "icons": "lucide-react. Use Shield, Heart, Activity, Stethoscope for medical/heroic vibes.",
+    "images": [
+      {
+        "url": "https://images.unsplash.com/photo-1755549746560-f56c7bd0c82f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwzfHxDUFIlMjB0cmFpbmluZyUyMGNsYXNzfGVufDB8fHx8MTc4NDE3NTI5OHww&ixlib=rb-4.1.0&q=85",
+        "category": "hero_background_or_training_section",
+        "description": "Man practices CPR on a training dummy outdoors. Good for landing page 'Training' section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1579037005241-a79202c7e9fd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwxfHxwYXJhbWVkaWNzJTIwZW1lcmdlbmN5JTIwcmVzcG9uZGVyc3xlbnwwfHx8fDE3ODQxNzUyOTh8MA&ixlib=rb-4.1.0&q=85",
+        "category": "emergency_response",
+        "description": "White and blue ambulance van. Good for heroic/emergency context."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1769791687730-52b608addf88?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwzfHxnb2xkJTIwY2VydGlmaWNhdGUlMjBzZWFsfGVufDB8fHx8MTc4NDE3NTI5OHww&ixlib=rb-4.1.0&q=85",
+        "category": "certificate_seal",
+        "description": "Golden medallion with intricate designs. Use as the gold seal in the certificate."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1592050103688-a6053fc0e386?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHwyfHxob3NwaXRhbCUyMGJ1aWxkaW5nJTIwQXN0ZXIlMjBNZWRjaXR5JTIwb3IlMjBnZW5lcmljJTIwbW9kZXJuJTIwaG9zcGl0YWx8ZW58MHx8fHwxNzg0MTc1Mjk4fDA&ixlib=rb-4.1.0&q=85",
+        "category": "hospital_partner",
+        "description": "Modern hospital building. Good for Aster Medcity context."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build the UI in React using standard Tailwind CSS and Shadcn UI components in .js files (no .tsx).",
+    "For the Landing Page, use raw HTML/Tailwind for custom layouts (bento grids, asymmetric alignments).",
+    "For the Dashboard, use Shadcn components extensively (Cards, Tables, Dialogs, Select).",
+    "Use 'Recharts' for the admin dashboard (Bar chart for districts, Donut for categories).",
+    "The MCQ test should be a clean, distraction-free interface.",
+    "Implement the Certificate PDF as a highly styled HTML component that can be printed/exported, strictly adhering to the Navy/Gold/Red color scheme.",
+    "Do NOT use completely transparent backgrounds in dropdowns, headers, or overlays.",
+    "Implement Google Fonts (Playfair Display and Outfit) in index.css.",
+    "Install `lucide-react` for icons."
+  ],
+  "universal_guidelines": [
+    "DO NOT use generic centered layouts or simplistic gradients.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Add transitions for specific interactive elements (button, input) excluding transforms. DO NOT apply universal transition (all).",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "All interactive elements MUST include a data-testid attribute.",
+    "Prioritize optical alignment over geometrical alignment.",
+    "Always explicitly set text color on hover.",
+    "DO NOT use AI assistant Emoji characters (\ud83e\udd16\ud83e\udde0\ud83d\udcad\ud83d\udca1\udd2e\ud83c\udfaf) for icons."
+  ]
+}
