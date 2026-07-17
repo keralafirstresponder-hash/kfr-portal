@@ -52,7 +52,11 @@ module.exports = {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))'
-        }
+        },
+        'kfr-navy': '#0B1B3D',
+        'kfr-navy-light': '#1A2B56',
+        'kfr-red': '#E63946',
+        'kfr-gold': '#D4AF37'
       },
       keyframes: {
         'accordion-down': {

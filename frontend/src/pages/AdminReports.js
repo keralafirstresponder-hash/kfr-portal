@@ -8,6 +8,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 const ALL = "__all__";
 const COLORS = ["#0B1B3D", "#E63946", "#D4AF37", "#007260", "#1A2B56", "#94A3B8", "#F59E0B", "#10B981", "#64748B"];
 
+const renderPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, value }) => {
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  return (
+    <text x={x} y={y} fill="#ffffff" textAnchor="middle" dominantBaseline="central" fontSize={12} fontWeight={700} style={{ pointerEvents: "none" }}>
+      {`${name} · ${value}`}
+    </text>
+  );
+};
+
 export default function AdminReports() {
   const [summary, setSummary] = useState(null);
   const [meta, setMeta] = useState({ districts: [], categories: [], orgs: [], events: [] });
@@ -81,8 +93,8 @@ export default function AdminReports() {
               innerRadius={50}
               outerRadius={95}
               paddingAngle={2}
-              label={({ name, count }) => `${name}: ${count}`}
-              labelLine={{ stroke: "#94A3B8" }}
+              label={renderPieLabel}
+              labelLine={false}
             >
               {summary.category.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
             </Pie>

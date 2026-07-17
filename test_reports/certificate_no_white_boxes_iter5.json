@@ -1,0 +1,55 @@
+{
+  "png_path": "/app/test_reports/bug_assets/generated_certificate_f8a9e1af.png",
+  "pdf_path": "/app/test_reports/bug_assets/generated_certificate_f8a9e1af.pdf",
+  "results": {
+    "name": {
+      "box": [
+        249,
+        355,
+        893,
+        465
+      ],
+      "near_white_ratio": 0.001,
+      "texture_stddev_avg": 59.298,
+      "background_mean_rgb_abs_diff_excluding_text": 14.865,
+      "passes_no_flat_white_box_check": true
+    },
+    "date": {
+      "box": [
+        297,
+        585,
+        504,
+        658
+      ],
+      "near_white_ratio": 0.0005,
+      "texture_stddev_avg": 58.223,
+      "background_mean_rgb_abs_diff_excluding_text": 11.955,
+      "passes_no_flat_white_box_check": true
+    },
+    "cert_id": {
+      "box": [
+        509,
+        585,
+        763,
+        658
+      ],
+      "near_white_ratio": 0.0004,
+      "texture_stddev_avg": 63.174,
+      "background_mean_rgb_abs_diff_excluding_text": 18.413,
+      "passes_no_flat_white_box_check": true
+    },
+    "training_centre": {
+      "box": [
+        734,
+        585,
+        1085,
+        658
+      ],
+      "near_white_ratio": 0.0,
+      "texture_stddev_avg": 36.062,
+      "background_mean_rgb_abs_diff_excluding_text": 11.999,
+      "passes_no_flat_white_box_check": true
+    }
+  },
+  "overall_pass": true
+}

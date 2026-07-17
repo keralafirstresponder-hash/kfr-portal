@@ -5,6 +5,19 @@ import { Users, Award, TimerReset, XCircle, Building2, CalendarDays } from "luci
 
 const COLORS = ["#0B1B3D", "#E63946", "#D4AF37", "#007260", "#1A2B56", "#94A3B8", "#F59E0B", "#10B981", "#64748B"];
 
+// Custom renderer that draws each slice label inside the slice with white text.
+const renderPieLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, value }) => {
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.55;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  return (
+    <text x={x} y={y} fill="#ffffff" textAnchor="middle" dominantBaseline="central" fontSize={11} fontWeight={700} style={{ pointerEvents: "none" }}>
+      {`${name} · ${value}`}
+    </text>
+  );
+};
+
 export default function AdminDashboard() {
   const [data, setData] = useState(null);
 
