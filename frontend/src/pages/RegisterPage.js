@@ -93,9 +93,9 @@ export default function RegisterPage() {
           <p className="text-slate-600 mt-4">Fill in your details to enroll in an upcoming Kerala First Responder training session.</p>
         </div>
 
-        <form onSubmit={submit} className="bg-white border border-slate-200 rounded-xl p-8 grid md:grid-cols-2 gap-5" data-testid="register-form">
+        <form onSubmit={submit} className="bg-white border border-slate-200 rounded-xl p-5 sm:p-8 grid md:grid-cols-2 gap-5" data-testid="register-form">
           <Field label="Full Name" required>
-            <Input data-testid="reg-name" value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Arjun Narayanan" />
+            <Input data-testid="reg-name" value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Enter your full name" />
           </Field>
           <Field label="Phone Number" required>
             <Input data-testid="reg-phone" value={form.phone} onChange={(e) => set("phone", e.target.value)} placeholder="+91 98••••••••" />
@@ -108,30 +108,33 @@ export default function RegisterPage() {
           </Field>
           <Field label="District" required>
             <Select value={form.district} onValueChange={(v) => set("district", v)}>
-              <SelectTrigger data-testid="reg-district"><SelectValue placeholder="Select district" /></SelectTrigger>
-              <SelectContent>{districts.map((d) => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
+              <SelectTrigger data-testid="reg-district" className="w-full"><SelectValue placeholder="Select district" /></SelectTrigger>
+              <SelectContent className="max-h-[280px]">{districts.map((d) => <SelectItem key={d} value={d}>{d}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
           <Field label="Category" required>
             <Select value={form.category} onValueChange={(v) => set("category", v)}>
-              <SelectTrigger data-testid="reg-category"><SelectValue placeholder="Select category" /></SelectTrigger>
-              <SelectContent>{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+              <SelectTrigger data-testid="reg-category" className="w-full"><SelectValue placeholder="Select category" /></SelectTrigger>
+              <SelectContent className="max-h-[280px]">{cats.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
           <Field label="Organisation" required>
             <Select value={form.organisation} onValueChange={(v) => set("organisation", v)}>
-              <SelectTrigger data-testid="reg-organisation"><SelectValue placeholder="Select organisation" /></SelectTrigger>
-              <SelectContent>{orgs.map((o) => <SelectItem key={o.id} value={o.name}>{o.name}</SelectItem>)}</SelectContent>
+              <SelectTrigger data-testid="reg-organisation" className="w-full"><SelectValue placeholder="Select organisation" /></SelectTrigger>
+              <SelectContent className="max-h-[280px]">{orgs.map((o) => <SelectItem key={o.id} value={o.name}>{o.name}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
           <Field label="Training Session" required>
             <Select value={form.event_id} onValueChange={(v) => set("event_id", v)}>
-              <SelectTrigger data-testid="reg-event"><SelectValue placeholder="Select session" /></SelectTrigger>
-              <SelectContent>
+              <SelectTrigger data-testid="reg-event" className="w-full h-auto min-h-10 py-2"><SelectValue placeholder="Select session" /></SelectTrigger>
+              <SelectContent className="max-h-[320px] max-w-[calc(100vw-32px)]">
                 {events.length === 0 && <div className="px-3 py-2 text-sm text-slate-500">No upcoming sessions</div>}
                 {events.map((ev) => (
-                  <SelectItem key={ev.id} value={ev.id}>
-                    {ev.name} — {ev.training_date} · {ev.place}
+                  <SelectItem key={ev.id} value={ev.id} className="py-2.5">
+                    <div className="flex flex-col items-start gap-0.5 min-w-0">
+                      <span className="font-medium text-kfr-navy truncate max-w-full">{ev.name}</span>
+                      <span className="text-xs text-slate-500 truncate max-w-full">{ev.training_date} · {ev.place}</span>
+                    </div>
                   </SelectItem>
                 ))}
               </SelectContent>

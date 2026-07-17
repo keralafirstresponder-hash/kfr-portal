@@ -35,7 +35,6 @@ export default function LandingPage() {
             </div>
           </Link>
           <div className="flex items-center gap-4">
-            <Link to="/admin/login" className="hidden sm:inline text-sm text-white/80 hover:text-white px-3" data-testid="nav-admin-link">Admin</Link>
             <Link to="/register" data-testid="nav-register-btn" className="bg-kfr-red btn-red-hover text-white text-sm font-semibold px-5 py-2.5 rounded-md shadow-lg">
               Register
             </Link>
