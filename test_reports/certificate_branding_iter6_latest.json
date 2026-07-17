@@ -1,0 +1,184 @@
+{
+  "api": "https://responder-registry.preview.emergentagent.com/api",
+  "steps": [
+    {
+      "name": "admin_login_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzRhODRkMzJkNTVjYzU1IiwiZXhwIjoxNzg0OTA2MzIyLCJpYXQiOjE3ODQzMDE1MjJ9.jXjt7wDbuLHfPsDuMgqQfs1ZvynahBEmu5dhjRJ1U7Y\",\"admin\":{\"id\":\"934a84d32d55"
+      }
+    },
+    {
+      "name": "list_events_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 1
+      }
+    },
+    {
+      "name": "list_questions_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 15
+      }
+    },
+    {
+      "name": "register_candidate_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"d2ef768906ec9049\"}",
+        "candidate_name": "QA Certificate No Boxes 64387216"
+      }
+    },
+    {
+      "name": "generate_test_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":0,\"failed\":1,\"total\":1}"
+      }
+    },
+    {
+      "name": "candidate_has_token",
+      "ok": true,
+      "details": {
+        "test_status": "pending",
+        "token_len": 32
+      }
+    },
+    {
+      "name": "get_test_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"status\":\"active\",\"candidate_name\":\"QA Certificate No Boxes 64387216\",\"questions\":[{\"id\":\"d7653fc173ff2100\",\"text\":\"During chest compressions, why is it important to allow complete chest recoil?\",\"op"
+      }
+    },
+    {
+      "name": "submit_passed_test_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"score\":10,\"passed\":true,\"certificate_id\":\"KFR-2026-F8A84A\",\"total\":10}"
+      }
+    },
+    {
+      "name": "certificate_info_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"candidate_name\":\"QA Certificate No Boxes 64387216\",\"certificate_id\":\"KFR-2026-F8A84A\",\"training_date\":\"2026-07-22\",\"training_place\":\"MAR IVANIOUS\",\"organisation\":\"Aster Medcity\",\"score\":10}"
+      }
+    },
+    {
+      "name": "certificate_pdf_download_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "content_type": "application/pdf",
+        "bytes": 164250,
+        "path": "/app/test_reports/bug_assets/iter6_certificate_branding/certificate_64387216.pdf"
+      }
+    },
+    {
+      "name": "certificate_pdf_renders_to_png",
+      "ok": true,
+      "details": {
+        "path": "/app/test_reports/bug_assets/iter6_certificate_branding/certificate_64387216.png",
+        "size": [
+          1174,
+          830
+        ]
+      }
+    },
+    {
+      "name": "background_matches_clean_template_outside_text_only",
+      "ok": true,
+      "details": {
+        "mean_rgb_abs_diff": 0.0031355816222468466,
+        "max_channel_diff": 7
+      }
+    },
+    {
+      "name": "calendar_icon_and_label_unchanged",
+      "ok": true,
+      "details": {
+        "mean_rgb_abs_diff": 0.0,
+        "crop": "/app/test_reports/bug_assets/iter6_certificate_branding/calendar_icon_and_label_64387216.png"
+      }
+    },
+    {
+      "name": "cert_id_icon_and_label_unchanged",
+      "ok": true,
+      "details": {
+        "mean_rgb_abs_diff": 0.0,
+        "crop": "/app/test_reports/bug_assets/iter6_certificate_branding/cert_id_icon_and_label_64387216.png"
+      }
+    },
+    {
+      "name": "map_pin_icon_and_label_unchanged",
+      "ok": true,
+      "details": {
+        "mean_rgb_abs_diff": 0.0,
+        "crop": "/app/test_reports/bug_assets/iter6_certificate_branding/map_pin_icon_and_label_64387216.png"
+      }
+    },
+    {
+      "name": "kfr_shield_has_transparent_outer_background",
+      "ok": true,
+      "details": {
+        "mode": "RGBA",
+        "size": [
+          852,
+          1133
+        ],
+        "transparent_border_ratio": 1.0
+      }
+    },
+    {
+      "name": "wisdom_logo_has_no_red_certificate_bleed",
+      "ok": true,
+      "details": {
+        "mode": "RGB",
+        "size": [
+          215,
+          95
+        ],
+        "red_pixel_ratio": 0.0
+      }
+    }
+  ],
+  "assets": {
+    "kfr_shield": {
+      "mode": "RGBA",
+      "size": [
+        852,
+        1133
+      ],
+      "transparent_border_ratio": 1.0
+    },
+    "wisdom4future": {
+      "mode": "RGB",
+      "size": [
+        215,
+        95
+      ],
+      "red_pixel_ratio": 0.0
+    }
+  },
+  "candidate_id": "d2ef768906ec9049",
+  "test_token": "fb5i016485Jfjtchag4FfeOVMKNA4NRP",
+  "dynamic_values": {
+    "candidate_name": "QA Certificate No Boxes 64387216",
+    "certificate_id": "KFR-2026-F8A84A",
+    "training_date": "2026-07-22",
+    "training_place": "MAR IVANIOUS"
+  },
+  "pdf_path": "/app/test_reports/bug_assets/iter6_certificate_branding/certificate_64387216.pdf",
+  "png_path": "/app/test_reports/bug_assets/iter6_certificate_branding/certificate_64387216.png",
+  "baseline_png_path": "/app/test_reports/bug_assets/iter6_certificate_branding/baseline_clean_template.png"
+}
