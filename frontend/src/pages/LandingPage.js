@@ -48,62 +48,53 @@ export default function LandingPage() {
           <img src={IMG_CPR_TRAINING} alt="CPR training" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(11,27,61,0.92) 0%, rgba(11,27,61,0.72) 45%, rgba(11,27,61,0.35) 100%)" }} />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-20 w-full">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Hero copy */}
-            <div className="lg:col-span-8 max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-kfr-gold/50 bg-white/5 backdrop-blur text-kfr-gold text-xs uppercase tracking-[0.25em] mb-8">
-                <Sparkles className="w-3.5 h-3.5" /> Courage to care · Skill to save
-              </div>
-              <h1 className="font-display text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
-                Every Keralite,
-                <br />
-                <span className="text-kfr-gold">a lifesaver.</span>
-              </h1>
-              <p className="text-white/85 text-lg md:text-xl mt-8 max-w-2xl leading-relaxed">
-                We are on a mission to train <span className="text-white font-semibold">100,000 Keralites</span> in CPR and Basic Life Support — turning ordinary bystanders into confident first responders.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <Link to="/register" data-testid="hero-register-btn" className="bg-kfr-red btn-red-hover text-white font-semibold px-8 py-4 rounded-md inline-flex items-center gap-2 shadow-xl">
-                  Register for training <ChevronRight className="w-4 h-4" />
-                </Link>
-                <a href="#mission" className="text-white hover:text-kfr-gold font-medium px-6 py-4 rounded-md border border-white/30 hover:border-kfr-gold backdrop-blur-sm transition-colors" data-testid="hero-learn-btn">
-                  Our mission
-                </a>
-              </div>
-
-              {/* Mission progress inline */}
-              <div className="mt-12 lg:mt-16 max-w-xl">
-                <div className="flex items-baseline justify-between mb-3">
-                  <div className="text-[10px] uppercase tracking-[0.3em] text-kfr-gold font-bold">Mission Progress</div>
-                  <div className="text-white/60 text-xs">{progress.toFixed(2)}%</div>
-                </div>
-                <div className="h-1.5 rounded-full bg-white/15 overflow-hidden">
-                  <div className="h-full bg-kfr-red" style={{ width: `${progress}%` }} />
-                </div>
-                <div className="mt-3 flex justify-between text-white/70 text-sm">
-                  <span><span className="text-white font-display font-bold text-2xl mr-1" data-testid="hero-trained-count">{trained.toLocaleString()}</span> certified</span>
-                  <span>Goal · 100,000</span>
-                </div>
-              </div>
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-24 w-full">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-kfr-gold/50 bg-white/5 backdrop-blur text-kfr-gold text-xs uppercase tracking-[0.25em] mb-8">
+              <Sparkles className="w-3.5 h-3.5" /> Courage to care · Skill to save
+            </div>
+            <h1 className="font-display text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
+              Every Keralite,
+              <br />
+              <span className="text-kfr-gold">a lifesaver.</span>
+            </h1>
+            <p className="text-white/85 text-lg md:text-xl mt-8 max-w-2xl leading-relaxed">
+              We are on a mission to train <span className="text-white font-semibold">100,000 Keralites</span> in CPR and Basic Life Support — turning ordinary bystanders into confident first responders.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link to="/register" data-testid="hero-register-btn" className="bg-kfr-red btn-red-hover text-white font-semibold px-8 py-4 rounded-md inline-flex items-center gap-2 shadow-xl">
+                Register for training <ChevronRight className="w-4 h-4" />
+              </Link>
+              <a href="#mission" className="text-white hover:text-kfr-gold font-medium px-6 py-4 rounded-md border border-white/30 hover:border-kfr-gold backdrop-blur-sm transition-colors" data-testid="hero-learn-btn">
+                Our mission
+              </a>
             </div>
 
-            {/* Hero shield — large, prominent */}
-            <div className="lg:col-span-4 hidden lg:flex justify-center items-center">
-              <div className="relative">
-                <div className="absolute -inset-8 rounded-full bg-kfr-gold/10 blur-3xl" />
-                <img src="/assets/kfr-shield.png" alt="Kerala First Responder" className="relative w-full max-w-[340px] drop-shadow-2xl" data-testid="hero-kfr-shield" />
+            {/* Mission progress inline */}
+            <div className="mt-10 max-w-xl">
+              <div className="flex items-baseline justify-between mb-3">
+                <div className="text-[10px] uppercase tracking-[0.3em] text-kfr-gold font-bold">Mission Progress</div>
+                <div className="text-white/60 text-xs">{progress.toFixed(2)}%</div>
+              </div>
+              <div className="flex items-end justify-between text-white/70 text-sm mb-2">
+                <span><span className="text-white font-display font-bold text-2xl mr-1" data-testid="hero-trained-count">{trained.toLocaleString()}</span> certified</span>
+                <span>Goal · 100,000</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-white/15 overflow-hidden">
+                <div className="h-full bg-kfr-red" style={{ width: `${progress}%` }} />
               </div>
             </div>
           </div>
         </div>
 
         {/* Partner logos row — bottom of hero */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-[#0b1b3d]/60 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-5 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-[#0b1b3d]/70 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">In partnership with</span>
-            <img src="/assets/aster-medcity-logo.png" alt="Aster Medcity" className="h-9 bg-white rounded px-2 py-1" />
-            <img src="/assets/wisdom4future-logo.png" alt="Wisdom 4 Future" className="h-11 bg-white rounded px-2 py-1" />
+            <div className="bg-white rounded-md px-3 py-1.5 shadow-sm">
+              <img src="/assets/aster-medcity-logo.png" alt="Aster Medcity" className="h-8 w-auto" />
+            </div>
+            <img src="/assets/wisdom4future-logo.png" alt="Wisdom 4 Future" className="h-12 w-auto rounded-md shadow-sm" />
           </div>
         </div>
       </section>

@@ -1,0 +1,14 @@
+{
+  "candidate_id": "31c8ee4fe6fc2348",
+  "payload": {
+    "name": "QA Iter7 UISecond 1d1f341abd",
+    "phone": "9876501234",
+    "email": "qa_iter7_uisecond_1d1f341abd@example.com",
+    "dob": "1994-07-17",
+    "district": "Ernakulam",
+    "category": "Volunteer",
+    "organisation": "Aster Medcity",
+    "event_id": "aeec75a9951199e0"
+  },
+  "api": "https://responder-registry.preview.emergentagent.com/api"
+}

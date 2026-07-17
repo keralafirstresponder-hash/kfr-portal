@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { Send, Search, Download, ExternalLink } from "lucide-react";
+import { Send, Search, Download, ExternalLink, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -76,6 +76,17 @@ export default function AdminCandidates() {
     link.click();
   };
 
+  const deleteCandidate = async (id, name) => {
+    if (!window.confirm(`Delete candidate "${name}"? This cannot be undone.`)) return;
+    try {
+      await api.delete(`/candidates/${id}`);
+      toast.success(`${name} deleted`);
+      load();
+    } catch (err) {
+      toast.error(err?.response?.data?.detail || "Delete failed");
+    }
+  };
+
   const setFilter = (k, v) => setFilters(f => ({ ...f, [k]: v }));
 
   return (
@@ -120,11 +131,12 @@ export default function AdminCandidates() {
                 <th className="p-4 text-left">Session</th>
                 <th className="p-4 text-left">Status</th>
                 <th className="p-4 text-left">Test link</th>
+                <th className="p-4 text-left w-20">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {loading && <tr><td colSpan={8} className="p-8 text-center text-slate-400">Loading…</td></tr>}
-              {!loading && filtered.length === 0 && <tr><td colSpan={8} className="p-8 text-center text-slate-400">No candidates match your filters.</td></tr>}
+              {loading && <tr><td colSpan={9} className="p-8 text-center text-slate-400">Loading…</td></tr>}
+              {!loading && filtered.length === 0 && <tr><td colSpan={9} className="p-8 text-center text-slate-400">No candidates match your filters.</td></tr>}
               {filtered.map(r => (
                 <tr key={r.id} className="border-b border-slate-100 hover:bg-slate-50/60">
                   <td className="p-4"><Checkbox checked={selected.has(r.id)} onCheckedChange={() => toggle(r.id)} data-testid={`cb-${r.id}`} /></td>
@@ -149,6 +161,16 @@ export default function AdminCandidates() {
                         Open <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : <span className="text-slate-300 text-xs">—</span>}
+                  </td>
+                  <td className="p-4">
+                    <button
+                      onClick={() => deleteCandidate(r.id, r.name)}
+                      className="p-2 rounded-md text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                      data-testid={`delete-candidate-${r.id}`}
+                      title="Delete candidate"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </td>
                 </tr>
               ))}

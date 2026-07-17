@@ -321,6 +321,14 @@ async def list_candidates(
     return docs
 
 
+@api_router.delete("/candidates/{candidate_id}")
+async def delete_candidate(candidate_id: str, admin = Depends(get_current_admin)):
+    result = await db.candidates.delete_one({"id": candidate_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Candidate not found")
+    return {"ok": True, "deleted": candidate_id}
+
+
 # ============ Test Generation & Emails ============
 async def _send_email(to_email: str, subject: str, html: str):
     if not EMAIL_KEY:

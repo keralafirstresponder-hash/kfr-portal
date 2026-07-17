@@ -1,0 +1,185 @@
+{
+  "api": "https://responder-registry.preview.emergentagent.com/api",
+  "steps": [
+    {
+      "name": "admin_login_api",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzRhODRkMzJkNTVjYzU1IiwiZXhwIjoxNzg0OTEyMDc1LCJpYXQiOjE3ODQzMDcyNzV9.7rLzHhDd5iZ7ff3S20kGTnFwqrr-vlB85933MeE-rOk\",\"admin\":{\"id\":\"934a84d32d55"
+      }
+    },
+    {
+      "name": "public_events_available",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 1
+      }
+    },
+    {
+      "name": "delete_requires_admin_auth",
+      "ok": true,
+      "details": {
+        "status": 401,
+        "body": "{\"detail\":\"Missing token\"}"
+      }
+    },
+    {
+      "name": "delete_unknown_candidate_404",
+      "ok": true,
+      "details": {
+        "status": 404,
+        "body": "{\"detail\":\"Candidate not found\"}"
+      }
+    },
+    {
+      "name": "register_candidate_for_backend_delete",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"f1b92a65e15a93d8\"}",
+        "email": "qa_iter7_backenddelete_11cefa4bb8@example.com"
+      }
+    },
+    {
+      "name": "backend_delete_candidate_visible_before_delete",
+      "ok": true,
+      "details": {
+        "candidate_id": "f1b92a65e15a93d8"
+      }
+    },
+    {
+      "name": "delete_candidate_success_200",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"deleted\":\"f1b92a65e15a93d8\"}"
+      }
+    },
+    {
+      "name": "deleted_candidate_absent_from_get_candidates",
+      "ok": true,
+      "details": {
+        "candidate_id": "f1b92a65e15a93d8",
+        "remaining_count": 16
+      }
+    },
+    {
+      "name": "register_candidate_for_ui_delete",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"227e5292184fb2d9\"}",
+        "email": "qa_iter7_uidelete_6d9a24eb86@example.com"
+      }
+    },
+    {
+      "name": "questions_available_for_test",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 15
+      }
+    },
+    {
+      "name": "register_candidate_for_regression_flow",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"71aadcec45f7c852\"}",
+        "email": "qa_iter7_regressioncert_0481c4c490@example.com"
+      }
+    },
+    {
+      "name": "generate_test_endpoint_accepts_candidate",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":0,\"failed\":1,\"total\":1}"
+      }
+    },
+    {
+      "name": "generate_test_sets_pending_token",
+      "ok": true,
+      "details": {
+        "test_status": "pending",
+        "token_len": 32
+      }
+    },
+    {
+      "name": "test_link_opens_active_test",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"status\":\"active\",\"candidate_name\":\"QA Iter7 RegressionCert 0481c4c490\",\"questions\":[{\"id\":\"5162bf3002ecadd3\",\"text\":\"If an Automated External Defibrillator (AED) is available, when should it be used"
+      }
+    },
+    {
+      "name": "test_submit_passes_with_correct_answers",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"score\":10,\"passed\":true,\"certificate_id\":\"KFR-2026-B614A1\",\"total\":10}"
+      }
+    },
+    {
+      "name": "certificate_pdf_downloads",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "content_type": "application/pdf",
+        "bytes": 164086,
+        "cert_id": "KFR-2026-B614A1"
+      }
+    },
+    {
+      "name": "certificate_background_unchanged_outside_dynamic_text",
+      "ok": true,
+      "details": {
+        "mean_rgb_abs_diff": 0.00335963057307969,
+        "png": "/app/test_reports/bug_assets/iter7/certificate_71aadcec45f7c852.png"
+      }
+    }
+  ],
+  "created_candidates": {
+    "backend_delete": {
+      "id": "f1b92a65e15a93d8",
+      "name": "QA Iter7 BackendDelete 11cefa4bb8",
+      "phone": "9876501234",
+      "email": "qa_iter7_backenddelete_11cefa4bb8@example.com",
+      "dob": "1994-07-17",
+      "district": "Ernakulam",
+      "category": "Volunteer",
+      "organisation": "Aster Medcity",
+      "event_id": "aeec75a9951199e0"
+    },
+    "ui_delete": {
+      "id": "227e5292184fb2d9",
+      "name": "QA Iter7 UIDelete 6d9a24eb86",
+      "phone": "9876501234",
+      "email": "qa_iter7_uidelete_6d9a24eb86@example.com",
+      "dob": "1994-07-17",
+      "district": "Ernakulam",
+      "category": "Volunteer",
+      "organisation": "Aster Medcity",
+      "event_id": "aeec75a9951199e0"
+    },
+    "regression_certificate": {
+      "id": "71aadcec45f7c852",
+      "name": "QA Iter7 RegressionCert 0481c4c490",
+      "phone": "9876501234",
+      "email": "qa_iter7_regressioncert_0481c4c490@example.com",
+      "dob": "1994-07-17",
+      "district": "Ernakulam",
+      "category": "Volunteer",
+      "organisation": "Aster Medcity",
+      "event_id": "aeec75a9951199e0"
+    }
+  },
+  "generate_test_response": {
+    "sent": 0,
+    "failed": 1,
+    "total": 1
+  }
+}
