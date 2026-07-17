@@ -59,7 +59,7 @@ export default function TestPage() {
         </div>
       </nav>
 
-      <div className="max-w-3xl mx-auto p-6 lg:p-10">
+      <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-10 pb-32">
         <div className="mb-6">
           <div className="flex justify-between items-baseline mb-3">
             <div className="text-xs uppercase tracking-[0.3em] text-kfr-red font-bold">Question {current + 1} of {questions.length}</div>
@@ -70,9 +70,9 @@ export default function TestPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-xl p-8" data-testid="question-card">
-          <div className="font-display text-2xl text-kfr-navy font-semibold leading-snug" data-testid="question-text">{q.text}</div>
-          <div className="mt-8 space-y-3">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-8" data-testid="question-card">
+          <div className="font-display text-xl sm:text-2xl text-kfr-navy font-semibold leading-snug" data-testid="question-text">{q.text}</div>
+          <div className="mt-6 sm:mt-8 space-y-3">
             {q.options.map(o => {
               const active = answers[q.id] === o.key;
               return (
@@ -80,22 +80,28 @@ export default function TestPage() {
                   key={o.key}
                   onClick={() => pick(o.key)}
                   data-testid={`option-${o.key}`}
-                  className={`w-full text-left flex items-start gap-4 p-4 rounded-lg border transition-colors ${active ? "border-kfr-navy bg-kfr-navy/5" : "border-slate-200 hover:border-slate-400"}`}
+                  className={`w-full text-left flex items-start gap-4 p-4 rounded-lg border-2 transition-all ${active ? "border-kfr-red bg-red-50 shadow-md ring-2 ring-kfr-red/25" : "border-slate-200 bg-white hover:border-slate-400"}`}
                 >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-mono text-sm font-bold shrink-0 ${active ? "bg-kfr-navy text-white" : "bg-slate-100 text-slate-500"}`}>{o.key}</div>
-                  <div className="text-slate-700 pt-1">{o.text}</div>
+                  <div className={`w-9 h-9 rounded-full flex items-center justify-center font-mono text-sm font-bold shrink-0 ${active ? "bg-kfr-red text-white" : "bg-slate-100 text-slate-500"}`}>{o.key}</div>
+                  <div className={`pt-1.5 ${active ? "text-kfr-navy font-medium" : "text-slate-700"}`}>{o.text}</div>
                 </button>
               );
             })}
           </div>
         </div>
+      </div>
 
-        <div className="flex justify-between mt-6">
-          <Button variant="outline" onClick={goPrev} disabled={current === 0} data-testid="prev-btn">Previous</Button>
+      {/* Sticky action bar — always visible */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-[0_-6px_18px_rgba(11,27,61,0.06)] z-20">
+        <div className="max-w-3xl mx-auto p-4 flex justify-between items-center gap-3">
+          <Button variant="outline" onClick={goPrev} disabled={current === 0} data-testid="prev-btn" className="min-w-24">Previous</Button>
+          <div className="text-xs text-slate-500 hidden sm:block">
+            {Object.keys(answers).length} / {questions.length} answered
+          </div>
           {current < questions.length - 1 ? (
-            <Button className="bg-kfr-navy hover:bg-[#1a2b56] text-white" onClick={goNext} data-testid="next-btn">Next <ChevronRight className="w-4 h-4 ml-1" /></Button>
+            <Button className="bg-kfr-navy hover:bg-[#1a2b56] text-white min-w-24" onClick={goNext} data-testid="next-btn">Next <ChevronRight className="w-4 h-4 ml-1" /></Button>
           ) : (
-            <Button className="bg-kfr-red hover:bg-[#d92b3a] text-white" onClick={submit} disabled={submitting} data-testid="submit-test-btn">
+            <Button className="bg-kfr-red hover:bg-[#d92b3a] text-white min-w-40" onClick={submit} disabled={submitting} data-testid="submit-test-btn">
               {submitting ? "Submitting…" : "Submit assessment"}
             </Button>
           )}

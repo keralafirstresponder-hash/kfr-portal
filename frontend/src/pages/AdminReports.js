@@ -74,10 +74,19 @@ export default function AdminReports() {
         </ChartCard>
         <ChartCard title="Category distribution">
           <PieChart>
-            <Pie data={summary.category} dataKey="count" nameKey="name" innerRadius={50} outerRadius={90} paddingAngle={2}>
+            <Pie
+              data={summary.category}
+              dataKey="count"
+              nameKey="name"
+              innerRadius={50}
+              outerRadius={95}
+              paddingAngle={2}
+              label={({ name, count }) => `${name}: ${count}`}
+              labelLine={{ stroke: "#94A3B8" }}
+            >
               {summary.category.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
             </Pie>
-            <Tooltip contentStyle={{ background: "#0B1B3D", color: "#fff", border: "none", borderRadius: 8 }} />
+            <Tooltip contentStyle={{ background: "#0B1B3D", color: "#fff", border: "none", borderRadius: 8 }} itemStyle={{ color: "#fff" }} labelStyle={{ color: "#fff" }} />
           </PieChart>
         </ChartCard>
       </div>

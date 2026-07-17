@@ -86,10 +86,19 @@ export default function AdminDashboard() {
             ) : (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
-                  <Pie data={data.category} dataKey="count" nameKey="name" innerRadius={45} outerRadius={80} paddingAngle={2}>
+                  <Pie
+                    data={data.category}
+                    dataKey="count"
+                    nameKey="name"
+                    innerRadius={45}
+                    outerRadius={80}
+                    paddingAngle={2}
+                    label={({ name, count }) => `${name}: ${count}`}
+                    labelLine={{ stroke: "#94A3B8" }}
+                  >
                     {data.category.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: "#0B1B3D", color: "#fff", border: "none", borderRadius: 8 }} />
+                  <Tooltip contentStyle={{ background: "#0B1B3D", color: "#fff", border: "none", borderRadius: 8 }} itemStyle={{ color: "#fff" }} labelStyle={{ color: "#fff" }} />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                 </PieChart>
               </ResponsiveContainer>

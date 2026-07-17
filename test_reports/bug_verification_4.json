@@ -1,0 +1,69 @@
+{
+  "verdict": "not_fixed",
+  "user_reported_bug": "1) the white boxes in the name ,date,certificate id, training center is hiding the backgrond. so no need of that white field. only the letters. 2)in category distribution in report the words of each split cant be see because of its black color change the tect to white 3)in the questionare page , just highlight the option we choose to identify the selected one. also the next botton is only visible when we touch",
+  "summary": "No relevant testing skill found. Focused retest covered certificate PDF generation, admin category donut charts, and /test/{token} option/action-bar UI. Certificate PDF dynamic fields no longer showed obvious solid rectangles in the generated PNG and pixel diff outside dynamic regions was low (mean RGB diff 2.59). Selected option highlighting worked. However the category donut labels were not visible/rendered on dashboard or reports, and the questionnaire Next button is still effectively invisible before interaction because it has white text on transparent/white background (bg-kfr-navy class is not defined).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "POST /api/admin/generate-test",
+        "issue": "Email send returned sent=0, failed=1 in preview while still generating the test token; not part of the reported UI bug but observed during setup."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "AdminReports/AdminDashboard category donut chart",
+        "issue": "Slice labels such as 'Student: 3'/'Healthcare Worker: 3' are not visible/rendered in the SVG on /admin/reports or dashboard. DOM check found no svg text labels for the slice values; reports only showed a hover tooltip, and dashboard only showed legend text.",
+        "selector": "[data-testid='chart-category'] svg text / Category distribution chart card svg text",
+        "priority": "HIGH"
+      },
+      {
+        "component": "TestPage Next button",
+        "issue": "Next button is positioned fixed and has a visible outline, but the label/background are not visible before interaction: computed style is color rgb(255,255,255) on background rgba(0,0,0,0). This is caused by using bg-kfr-navy without a defined Tailwind/custom CSS class.",
+        "selector": "[data-testid='next-btn']",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "/test/{token}",
+        "issues": [
+          "Selected option is clearly highlighted via red-tinted background and red letter badge, but red border/ring utilities using kfr-red are not fully applied in computed CSS (border remained slate/blue focus ring).",
+          "Action bar is fixed and does not overlap the last option, but Next CTA contrast is still broken."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/test_reports/test_certificate_branding_flow.py",
+    "/app/test_reports/certificate_branding_latest.json",
+    "/app/test_reports/pending_test_token.json",
+    "/app/test_reports/bug_verification_4.json",
+    "/app/test_reports/iteration_4.json"
+  ],
+  "action_items": [
+    "Fix category donut labels so the slice labels are actually rendered and readable (white text as requested, or readable outside labels with explicit fill) on both /admin and /admin/reports.",
+    "Define/use a real visible class for the questionnaire Next/Submit button background (e.g. add .bg-kfr-navy or use bg-[#0B1B3D]) so white text is readable before touch/hover.",
+    "Define/use explicit border/ring color utilities for selected options (e.g. border-[#E63946] ring-[#E63946]/25) to ensure the selected state fully matches the intended red highlight."
+  ],
+  "critical_code_review_comments": [
+    "Frontend uses custom utility names bg-kfr-navy, border-kfr-red, and ring-kfr-red/25, but tailwind.config.js does not define kfr-navy/kfr-red colors and index.css defines only .kfr-navy, .text-kfr-navy, .text-kfr-red, .bg-kfr-red, not .bg-kfr-navy or .border-kfr-red. This directly explains the invisible Next button and partial selected-option styling.",
+    "Recharts Pie label prop is present in source, but runtime DOM/screenshots showed no visible slice-label text on category charts, so the user-visible report chart issue remains."
+  ],
+  "updated_files": [
+    "/app/test_reports/bug_verification_4.json",
+    "/app/test_reports/iteration_4.json"
+  ],
+  "success_rate": {
+    "backend": "90%",
+    "frontend": "40%"
+  },
+  "seed_data_creation": "Created QA certificate candidate QA Branding 256ba571 and pending questionnaire candidates QA Nav Token c07799ff / QA Nav Token 479ec7f5 via existing helper scripts and admin credentials.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use the newest pending token in /app/test_reports/pending_test_token.json or create another with create_pending_test_token.py. Re-check computed style for [data-testid='next-btn'] background/color and query category chart svg text labels after login. Certificate evidence is in /app/test_reports/certificate_branding_latest.json and bug_assets PNG/PDF crops.",
+  "rca_of_the_issue": "The certificate portion appears fixed by drawing over the template with sampled texture; generated PNG had no obvious solid white/cream rectangles and low background diff outside dynamic fields. Remaining failures are frontend CSS/rendering: custom Tailwind class names are not configured, leaving bg-kfr-navy transparent and several kfr color utilities ineffective; Recharts labels are either not rendering or not visible despite the label prop. Reproduction: login as admin, open /admin and /admin/reports, observe no slice value labels; open /test/<pending-token> on mobile/desktop, observe Next button white label on transparent/white background before touch."
+}
