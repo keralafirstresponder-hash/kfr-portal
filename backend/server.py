@@ -20,6 +20,7 @@ from datetime import datetime, timezone, timedelta, date
 
 from certificate import build_certificate_pdf
 from seed_data import DEFAULT_QUESTIONS, DEFAULT_ORGANISATIONS
+from seed_data_ml import MALAYALAM_QUESTIONS
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -436,7 +437,7 @@ async def generate_test(req: GenerateTestRequest, admin = Depends(get_current_ad
 
 # ============ Test taking ============
 @api_router.get("/test/{token}")
-async def get_test(token: str):
+async def get_test(token: str, lang: Optional[str] = None):
     c = await db.candidates.find_one({"test_token": token}, {"_id": 0})
     if not c:
         raise HTTPException(status_code=404, detail="Invalid or expired test link")
@@ -448,15 +449,22 @@ async def get_test(token: str):
             "candidate_name": c["name"],
             "certificate_id": c.get("certificate_id"),
         }
-    # Pick 10 random questions
-    all_q = await db.questions.find({}, {"_id": 0}).to_list(500)
+    # If language not chosen yet, prompt candidate to pick one
+    if lang not in ("en", "ml"):
+        return {"status": "language_required", "candidate_name": c["name"]}
+    # Pick 10 random questions in the chosen language
+    all_q = await db.questions.find({"language": lang}, {"_id": 0}).to_list(500)
     if len(all_q) < 10:
-        raise HTTPException(status_code=500, detail="Insufficient questions configured")
+        raise HTTPException(status_code=500, detail=f"Insufficient questions configured for language '{lang}'")
     selected = random.sample(all_q, 10)
-    # store selected question IDs on candidate so submit uses same set
-    await db.candidates.update_one({"id": c["id"]}, {"$set": {"active_question_ids": [q["id"] for q in selected]}})
+    # store selected question IDs + chosen language on candidate
+    await db.candidates.update_one(
+        {"id": c["id"]},
+        {"$set": {"active_question_ids": [q["id"] for q in selected], "test_language": lang}}
+    )
     return {
         "status": "active",
+        "language": lang,
         "candidate_name": c["name"],
         "questions": [{"id": q["id"], "text": q["text"], "options": q["options"]} for q in selected],
     }
@@ -636,8 +644,15 @@ async def startup_seed():
     # Seed questions
     if await db.questions.count_documents({}) == 0:
         for q in DEFAULT_QUESTIONS:
-            await db.questions.insert_one({"id": gen_id(), **q})
-        logger.info(f"Seeded {len(DEFAULT_QUESTIONS)} questions")
+            await db.questions.insert_one({"id": gen_id(), "language": "en", **q})
+        logger.info(f"Seeded {len(DEFAULT_QUESTIONS)} English questions")
+    # Seed Malayalam questions (idempotent — only if none exist)
+    if await db.questions.count_documents({"language": "ml"}) == 0:
+        for q in MALAYALAM_QUESTIONS:
+            await db.questions.insert_one({"id": gen_id(), "language": "ml", **q})
+        logger.info(f"Seeded {len(MALAYALAM_QUESTIONS)} Malayalam questions")
+    # Backfill: mark any legacy questions without a language as English
+    await db.questions.update_many({"language": {"$exists": False}}, {"$set": {"language": "en"}})
     # Seed a demo event so registration flow works out of the box
     if await db.events.count_documents({}) == 0:
         await db.events.insert_one({

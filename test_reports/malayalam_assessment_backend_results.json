@@ -1,0 +1,283 @@
+{
+  "base": "https://responder-registry.preview.emergentagent.com",
+  "steps": [
+    {
+      "name": "admin login",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzRhODRkMzJkNTVjYzU1IiwiZXhwIjoxNzg0OTgxMzMzLCJpYXQiOjE3ODQzNzY1MzN9.sx7UIvIN6BmJo_mcVukA1fIVo3fTgDZ2wYNYaP_UF7w\",\"admin\":{\"id\":\"934a84d32d55"
+      }
+    },
+    {
+      "name": "questions have required language counts",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "en": 15,
+        "ml": 12,
+        "missing_lang_count": 0
+      }
+    },
+    {
+      "name": "list events",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 1
+      }
+    },
+    {
+      "name": "register candidate en_pass",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"39d7cd0ea631a82c\"}"
+      }
+    },
+    {
+      "name": "generate test token",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":0,\"failed\":1,\"total\":1}"
+      }
+    },
+    {
+      "name": "list candidates for token",
+      "ok": true,
+      "details": {
+        "status": 200
+      }
+    },
+    {
+      "name": "candidate has pending token",
+      "ok": true,
+      "details": {
+        "token_present": true,
+        "status": "pending"
+      }
+    },
+    {
+      "name": "test without lang requires language and leaks no questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "keys": [
+          "status",
+          "candidate_name"
+        ]
+      }
+    },
+    {
+      "name": "get active en test returns exactly 10 isolated-language questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "api_language": "en",
+        "count": 10,
+        "lang_ok": true,
+        "sample": "Which emergency number should you call in India for an ambulance?"
+      }
+    },
+    {
+      "name": "submit correct answers scores and sets passed",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "score": 10,
+        "passed": true,
+        "cert_present": true
+      }
+    },
+    {
+      "name": "candidate persisted as passed",
+      "ok": true,
+      "details": {
+        "status": "passed",
+        "score": 10,
+        "language": "en"
+      }
+    },
+    {
+      "name": "completed test returns completed state without language prompt",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body_status": "completed",
+        "keys": [
+          "status",
+          "score",
+          "passed",
+          "candidate_name",
+          "certificate_id"
+        ]
+      }
+    },
+    {
+      "name": "register candidate ml_pass",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"e4dfe6248bdc357f\"}"
+      }
+    },
+    {
+      "name": "generate test token",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":0,\"failed\":1,\"total\":1}"
+      }
+    },
+    {
+      "name": "list candidates for token",
+      "ok": true,
+      "details": {
+        "status": 200
+      }
+    },
+    {
+      "name": "candidate has pending token",
+      "ok": true,
+      "details": {
+        "token_present": true,
+        "status": "pending"
+      }
+    },
+    {
+      "name": "test without lang requires language and leaks no questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "keys": [
+          "status",
+          "candidate_name"
+        ]
+      }
+    },
+    {
+      "name": "get active ml test returns exactly 10 isolated-language questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "api_language": "ml",
+        "count": 10,
+        "lang_ok": true,
+        "sample": "നെഞ്ചിൽ അമർത്തൽ (Chest Compressions) എവിടെയാണ് നൽകേണ്ടത്?"
+      }
+    },
+    {
+      "name": "submit correct answers scores and sets passed",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "score": 10,
+        "passed": true,
+        "cert_present": true
+      }
+    },
+    {
+      "name": "candidate persisted as passed",
+      "ok": true,
+      "details": {
+        "status": "passed",
+        "score": 10,
+        "language": "ml"
+      }
+    },
+    {
+      "name": "certificate PDF renders for passed candidate",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "content_type": "application/pdf",
+        "starts_pdf": "%PDF",
+        "bytes": 164432
+      }
+    },
+    {
+      "name": "register candidate ml_fail",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"195f969e1d4e06a1\"}"
+      }
+    },
+    {
+      "name": "generate test token",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":0,\"failed\":1,\"total\":1}"
+      }
+    },
+    {
+      "name": "list candidates for token",
+      "ok": true,
+      "details": {
+        "status": 200
+      }
+    },
+    {
+      "name": "candidate has pending token",
+      "ok": true,
+      "details": {
+        "token_present": true,
+        "status": "pending"
+      }
+    },
+    {
+      "name": "test without lang requires language and leaks no questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "keys": [
+          "status",
+          "candidate_name"
+        ]
+      }
+    },
+    {
+      "name": "get active ml test returns exactly 10 isolated-language questions",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "api_language": "ml",
+        "count": 10,
+        "lang_ok": true,
+        "sample": "ബോധരഹിതനായി കിടക്കുന്ന ഒരാളെ കണ്ടാൽ ആദ്യം എന്ത് ചെയ്യണം?"
+      }
+    },
+    {
+      "name": "submit wrong answers scores and sets failed",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "score": 0,
+        "passed": false,
+        "cert_present": false
+      }
+    },
+    {
+      "name": "candidate persisted as failed",
+      "ok": true,
+      "details": {
+        "status": "failed",
+        "score": 0,
+        "language": "ml"
+      }
+    }
+  ],
+  "created_candidate_ids": [
+    "39d7cd0ea631a82c",
+    "e4dfe6248bdc357f",
+    "195f969e1d4e06a1"
+  ],
+  "tokens": {
+    "en_pass": "gWkh4eQNS3VQ46LCZjYMREdCB3eE390_",
+    "ml_pass": "d4wQmTk55QrMo90_yuujFyaEAjDa3n5y",
+    "ml_fail": "xYMjOYMJfmbCwJqMpZN85ciDo5pjZilx"
+  },
+  "ok": true
+}

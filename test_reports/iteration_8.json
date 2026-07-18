@@ -1,0 +1,62 @@
+{
+  "verdict": "fixed",
+  "user_reported_bug": "Add the uploaded Malayalam assessment questions to the existing question bank. Add a required Language Selection field (radio buttons or a dropdown) before the assessment with two options: English, Malayalam (മലയാളം). If the candidate selects English, display only the existing English questionnaire. If the candidate selects Malayalam, display only the uploaded Malayalam questionnaire. Both language versions must have the same scoring logic, pass criteria and certificate generation.",
+  "summary": "No relevant testing skill found. Focused API and UI verification passed: question bank has language-tagged English/Malayalam questions, /test/{token} requires language before showing questions, English and Malayalam selections each load exactly 10 isolated-language questions, both languages score using the same correct_key logic with >=5/10 pass criteria, and Malayalam pass generates a valid PDF certificate. Narrow non-assessment smoke also passed for landing/register/admin dashboard/candidates delete/reports labels/questions/certificate page.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "backend/tests/backend_test.py",
+        "issue": "Legacy pytest expectations are now stale: 5 tests still expect GET /api/test/{token} to return active questions without lang. Product behavior matches the new requirement (language_required); update tests to pass lang=en/ml."
+      },
+      {
+        "endpoint": "POST/PUT /api/questions",
+        "issue": "Code review note: admin-created/edited questions still use QuestionCreate without a language field/default. Existing seeded bank is correctly tagged now, but future admin-created questions would not be selected by language-filtered tests until backfilled."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/verify_malayalam_assessment_backend.py",
+    "/app/test_reports/malayalam_assessment_backend_results.json",
+    "/app/test_reports/create_pending_ui_tokens.py",
+    "/app/test_reports/ui_pending_tokens.json",
+    "/app/test_reports/verify_malayalam_assessment_ui.py",
+    "/app/test_reports/create_delete_candidate.py",
+    "/app/test_reports/delete_candidate_fixture.json",
+    "/app/test_reports/smoke_non_assessment_regression_ui.py"
+  ],
+  "action_items": [
+    "Update legacy backend pytest cases to use /api/test/{token}?lang=en or ?lang=ml under the new language-required contract.",
+    "Consider adding a language default/field for admin-created questions so future question-bank maintenance stays compatible with language-filtered assessments."
+  ],
+  "critical_code_review_comments": [
+    "Changed assessment endpoint and TestPage implementation are scoped to the requested assessment flow; registration/dashboard/admin/report/certificate design files were not modified by the fix.",
+    "The legacy automated pytest suite has failures caused by the intentional contract change, not by a runtime product failure observed in preview."
+  ],
+  "updated_files": [
+    "/app/test_reports/verify_malayalam_assessment_backend.py",
+    "/app/test_reports/malayalam_assessment_backend_results.json",
+    "/app/test_reports/create_pending_ui_tokens.py",
+    "/app/test_reports/ui_pending_tokens.json",
+    "/app/test_reports/verify_malayalam_assessment_ui.py",
+    "/app/test_reports/create_delete_candidate.py",
+    "/app/test_reports/delete_candidate_fixture.json",
+    "/app/test_reports/smoke_non_assessment_regression_ui.py",
+    "/app/test_reports/bug_verification_8.json",
+    "/app/test_reports/iteration_8.json"
+  ],
+  "success_rate": {
+    "backend": "100% focused bug verification; legacy pytest suite 23/28 due stale tests",
+    "frontend": "100% focused UI/regression smoke after correcting automation-only dialog handler"
+  },
+  "seed_data_creation": "Created temporary QA candidates/tokens through real registration + admin generate-test APIs for English pass, Malayalam pass, Malayalam fail, UI language-selector/submit, and one delete-button fixture candidate (deleted during smoke).",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Use /app/test_reports/malayalam_assessment_backend_results.json for token/candidate evidence. Completed tokens return status=completed by design. If retesting UI, create fresh pending tokens with /app/test_reports/create_pending_ui_tokens.py because existing UI submit token has been completed.",
+  "rca_of_the_issue": "Verified fix implements language tagging and filtering: startup seeds/backfills language values, GET /api/test/{token} returns language_required until lang=en/ml is provided, stores active_question_ids/test_language, and submit scores against stored question IDs. Runtime evidence showed no question leakage before language selection and no cross-language leakage after selection. No mocked APIs were used."
+}

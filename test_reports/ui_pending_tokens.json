@@ -1,0 +1,13 @@
+{
+  "base": "https://responder-registry.preview.emergentagent.com",
+  "tokens": {
+    "ui_en": "H2dR6oC4u7fu854awIwJSzRo2h5fLMVB",
+    "ui_ml": "U0NWi6WznpkPsOoxIQD0uulqkntJ4hOv",
+    "ui_ml_submit": "tx9uWr9X7eGZXuP6gksyj9bWwZnIUkv9"
+  },
+  "candidate_ids": {
+    "ui_en": "9c81352b66dbac59",
+    "ui_ml": "b5b9b4955dd46683",
+    "ui_ml_submit": "9e6e9d1c0746fbe4"
+  }
+}

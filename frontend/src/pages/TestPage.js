@@ -20,11 +20,26 @@ export default function TestPage() {
     }).catch(err => setState({ loading: false, error: err?.response?.data?.detail || "Invalid link" }));
   }, [token]);
 
+  const startInLanguage = async (lang) => {
+    setState(s => ({ ...s, loading: true }));
+    try {
+      const { data } = await api.get(`/test/${token}`, { params: { lang } });
+      setState({ loading: false, data });
+    } catch (err) {
+      setState({ loading: false, error: err?.response?.data?.detail || "Failed to load test" });
+    }
+  };
+
   if (state.loading) return <div className="min-h-screen flex items-center justify-center text-slate-500">Loading test…</div>;
   if (state.error) return <ErrorScreen msg={state.error} />;
 
   const data = state.data;
   if (result) return <ResultScreen result={result} token={token} />;
+
+  // Show language selector before questions
+  if (data?.status === "language_required") {
+    return <LanguageSelect candidateName={data.candidate_name} onPick={startInLanguage} />;
+  }
 
   const questions = data.questions;
   const q = questions[current];
@@ -152,6 +167,52 @@ function ResultScreen({ result, token }) {
           </>
         )}
         <Link to="/" className="mt-10 block text-white/60 hover:text-white text-sm">Back to home</Link>
+      </div>
+    </div>
+  );
+}
+
+
+function LanguageSelect({ candidateName, onPick }) {
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <nav className="kfr-navy">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img src="/assets/kfr-shield.png" alt="KFR" className="h-9 w-auto" />
+            <div className="text-white font-display font-semibold">KFR Assessment</div>
+          </div>
+          <div className="text-white/70 text-sm">Candidate: <span className="text-white font-medium">{candidateName}</span></div>
+        </div>
+      </nav>
+
+      <div className="max-w-3xl mx-auto p-4 sm:p-6 lg:p-10">
+        <div className="mb-8">
+          <div className="text-xs uppercase tracking-[0.3em] text-kfr-red font-bold">Language / ഭാഷ</div>
+          <h1 className="font-display text-3xl sm:text-4xl text-kfr-navy font-bold mt-3">Choose your assessment language</h1>
+          <p className="text-slate-500 mt-3 text-sm">Please pick the language you would like to take the CPR &amp; BLS assessment in. / നിങ്ങൾ ഏത് ഭാഷയിലാണ് അസസ്‌മെന്റ് എഴുതാൻ ആഗ്രഹിക്കുന്നത് എന്ന് തിരഞ്ഞെടുക്കുക.</p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-4">
+          <button
+            onClick={() => onPick("en")}
+            data-testid="lang-en-btn"
+            className="text-left bg-white border-2 border-slate-200 hover:border-kfr-red hover:shadow-md rounded-xl p-6 transition-all"
+          >
+            <div className="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold">Option A</div>
+            <div className="font-display text-2xl text-kfr-navy font-semibold mt-2">English</div>
+            <div className="text-slate-500 text-sm mt-2">Take the assessment in English.</div>
+          </button>
+          <button
+            onClick={() => onPick("ml")}
+            data-testid="lang-ml-btn"
+            className="text-left bg-white border-2 border-slate-200 hover:border-kfr-red hover:shadow-md rounded-xl p-6 transition-all"
+          >
+            <div className="text-xs uppercase tracking-[0.3em] text-slate-400 font-bold">Option B</div>
+            <div className="font-display text-2xl text-kfr-navy font-semibold mt-2">മലയാളം</div>
+            <div className="text-slate-500 text-sm mt-2">അസസ്‌മെന്റ് മലയാളത്തിൽ എഴുതുക.</div>
+          </button>
+        </div>
       </div>
     </div>
   );
