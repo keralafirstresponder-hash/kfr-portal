@@ -117,6 +117,7 @@ class QuestionCreate(BaseModel):
     text: str
     options: List[QuestionOption]
     correct_key: str
+    language: Optional[str] = "en"
 
 class QuestionOut(QuestionCreate):
     id: str
