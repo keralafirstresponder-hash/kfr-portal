@@ -542,6 +542,14 @@ async def cert_pdf(token: str):
     )
 
 
+# ============ Public stats (no auth) — powers the home page counter ============
+@api_router.get("/public/stats")
+async def public_stats():
+    total = await db.candidates.count_documents({})
+    passed = await db.candidates.count_documents({"test_status": "passed"})
+    return {"candidates": total, "passed": passed, "mission_goal": 100000}
+
+
 # ============ Reports ============
 @api_router.get("/reports/summary")
 async def reports_summary(admin = Depends(get_current_admin)):

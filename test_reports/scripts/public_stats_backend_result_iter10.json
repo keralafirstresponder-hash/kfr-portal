@@ -1,0 +1,182 @@
+{
+  "base_url": "https://responder-registry.preview.emergentagent.com",
+  "checks": [
+    {
+      "name": "GET /api/public/stats anonymous returns 200 (no auth/no 401)",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"candidates\":31,\"passed\":16,\"mission_goal\":100000}"
+      }
+    },
+    {
+      "name": "public stats JSON keys and int types",
+      "ok": true,
+      "details": {
+        "candidates": 31,
+        "passed": 16,
+        "mission_goal": 100000
+      }
+    },
+    {
+      "name": "public stats matches MongoDB passed count before increment",
+      "ok": true,
+      "details": {
+        "api": {
+          "candidates": 31,
+          "passed": 16,
+          "mission_goal": 100000
+        },
+        "db": {
+          "candidates": 31,
+          "passed": 16,
+          "mission_goal": 100000
+        }
+      }
+    },
+    {
+      "name": "preview DB has non-zero passed candidates for landing counter",
+      "ok": true,
+      "details": {
+        "candidates": 31,
+        "passed": 16,
+        "mission_goal": 100000
+      }
+    },
+    {
+      "name": "admin login works for candidate/test verification",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzRhODRkMzJkNTVjYzU1IiwiZXhwIjoxNzg1MTY5OTY3LCJpYXQiOjE3ODQ1NjUxNjd9.fl-wwSBVJEFN7KWuP7w5E_3nbkFKHUOfHVopJes7xBg\",\"admin\":{\"id\":\"934a84d32d55"
+      }
+    },
+    {
+      "name": "admin GET /api/candidates still works",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 31
+      }
+    },
+    {
+      "name": "public passed count matches admin candidates passed count",
+      "ok": true,
+      "details": {
+        "admin_passed": 16,
+        "public_passed": 16
+      }
+    },
+    {
+      "name": "public GET /api/events works for choosing session",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "count": 2
+      }
+    },
+    {
+      "name": "public candidate registration works for new candidate",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"ok\":true,\"candidate_id\":\"6ffd0e4d422eedcc\"}"
+      }
+    },
+    {
+      "name": "admin generate-test endpoint completes for new candidate",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"sent\":0,\"failed\":1,\"total\":1}"
+      }
+    },
+    {
+      "name": "admin candidates filter pending still works",
+      "ok": true,
+      "details": {
+        "status": 200
+      }
+    },
+    {
+      "name": "new candidate has pending test token after generate-test",
+      "ok": true,
+      "details": {
+        "candidate": {
+          "id": "6ffd0e4d422eedcc",
+          "test_status": "pending",
+          "test_token": "d4VZYwWUDQ_YCh6TjtN37NDDFfa00mZB"
+        }
+      }
+    },
+    {
+      "name": "candidate GET /api/test/{token}?lang=en returns active test",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body_keys": [
+          "status",
+          "language",
+          "candidate_name",
+          "questions"
+        ]
+      }
+    },
+    {
+      "name": "candidate submit assessment passes",
+      "ok": true,
+      "details": {
+        "status": 200,
+        "body": "{\"score\":10,\"passed\":true,\"certificate_id\":\"KFR-2026-433E12\",\"total\":10}"
+      }
+    },
+    {
+      "name": "public stats returns fresh incremented passed count after assessment pass",
+      "ok": true,
+      "details": {
+        "before_public": {
+          "candidates": 31,
+          "passed": 16,
+          "mission_goal": 100000
+        },
+        "after_public": {
+          "candidates": 32,
+          "passed": 17,
+          "mission_goal": 100000
+        },
+        "db_after": {
+          "candidates": 32,
+          "passed": 17,
+          "mission_goal": 100000
+        }
+      }
+    }
+  ],
+  "created_candidate_id": "6ffd0e4d422eedcc",
+  "created_candidate_email": "counter-pass-1784565167@example.com",
+  "token": "d4VZYwWUDQ_YCh6TjtN37NDDFfa00mZB",
+  "before": {
+    "api": {
+      "candidates": 31,
+      "passed": 16,
+      "mission_goal": 100000
+    },
+    "db": {
+      "candidates": 31,
+      "passed": 16,
+      "mission_goal": 100000
+    }
+  },
+  "after_increment": {
+    "api": {
+      "candidates": 32,
+      "passed": 17,
+      "mission_goal": 100000
+    },
+    "db": {
+      "candidates": 32,
+      "passed": 17,
+      "mission_goal": 100000
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "verdict": "fixed",
+  "user_reported_bug": "the certied number is not updated in the home page . it static and it is 0 increment this accordig to the certified person numbers. dont modify or change other pages or design",
+  "summary": "No relevant testing skill found. Verified the anonymous public stats endpoint, DB/admin count parity, anonymous landing page counter/progress bar, and a real new candidate passing flow. The home page certified count is no longer static 0; it showed 17 after creating one new passed candidate and matched /api/public/stats/MongoDB.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/admin/generate-test",
+        "issue": "Email delivery returned {sent:0, failed:1} in preview while the test token was still generated; assessment flow was completed by reading the token from admin candidate data. This appears outside the home-page counter fix but the emailed-link integration is not working in this preview."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/test_reports/scripts/verify_public_stats_counter_iter10.py",
+    "/app/test_reports/scripts/public_stats_backend_result_iter10.json"
+  ],
+  "action_items": [
+    "No action needed for the reported home-page certified counter bug.",
+    "Optional: confirm/revert the unexpected modified certificate template asset if it was not intended for this counter-only fix."
+  ],
+  "critical_code_review_comments": [
+    "Code inspection confirmed LandingPage now fetches /api/public/stats and backend exposes GET /api/public/stats without auth, counting candidates where test_status='passed'.",
+    "Working tree includes an out-of-scope modified file: /app/backend/assets/cert_template_clean.jpg, despite the review note saying only server.py and LandingPage.js changed."
+  ],
+  "updated_files": [
+    "/app/test_reports/scripts/verify_public_stats_counter_iter10.py",
+    "/app/test_reports/scripts/public_stats_backend_result_iter10.json",
+    "/app/test_reports/bug_verification_10.json",
+    "/app/test_reports/iteration_10.json"
+  ],
+  "success_rate": {
+    "backend": "100% for counter/stat APIs; email delivery issue observed outside counter fix",
+    "frontend": "100% for landing counter/progress and focused smoke checks"
+  },
+  "seed_data_creation": "Created real QA candidate Counter Pass 1784565167 (id 6ffd0e4d422eedcc, email counter-pass-1784565167@example.com), generated a test token, submitted a passing assessment, and left it in DB as a certified candidate. Passed count increased from 16 to 17; total candidates increased from 31 to 32.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Latest focused verification is iteration_10. Current /api/public/stats returned {candidates:32, passed:17, mission_goal:100000}. Anonymous landing page [data-testid='hero-trained-count'] showed 17 and progress bar style width was 0.017%. Admin reports Certified metric also showed 17. No relevant testing skill found.",
+  "rca_of_the_issue": "The old home page fetched /api/reports/summary, which requires admin auth; anonymous visitors got 401 and the catch path left the default passed value at 0. The fix adds a no-auth /api/public/stats endpoint and maps LandingPage totals directly from that response. Verified end-to-end after a newly passed candidate incremented the count."
+}

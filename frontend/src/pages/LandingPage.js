@@ -14,8 +14,8 @@ export default function LandingPage() {
   const [totals, setTotals] = useState({ candidates: 0, passed: 0, mission_goal: 100000 });
 
   useEffect(() => {
-    api.get("/reports/summary").catch(() => null).then((r) => {
-      if (r?.data?.totals) setTotals(r.data.totals);
+    api.get("/public/stats").catch(() => null).then((r) => {
+      if (r?.data) setTotals(r.data);
     });
   }, []);
 
