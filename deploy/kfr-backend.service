@@ -1,0 +1,22 @@
+# /etc/systemd/system/kfr-backend.service
+# Runs the FastAPI backend as a system service (auto-restart on crash / boot).
+
+[Unit]
+Description=Kerala First Responders — FastAPI backend
+After=network.target mongod.service
+Requires=mongod.service
+
+[Service]
+Type=simple
+User=kfr
+Group=kfr
+WorkingDirectory=/home/kfr/app/backend
+EnvironmentFile=/home/kfr/app/backend/.env
+ExecStart=/home/kfr/app/backend/.venv/bin/uvicorn server:app --host 127.0.0.1 --port 8001 --workers 2
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:/var/log/kfr-backend.log
+StandardError=append:/var/log/kfr-backend.log
+
+[Install]
+WantedBy=multi-user.target

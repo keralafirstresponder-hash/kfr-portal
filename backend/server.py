@@ -33,9 +33,12 @@ db = client[os.environ['DB_NAME']]
 # Config
 JWT_SECRET = os.environ['JWT_SECRET']
 JWT_ALGO = "HS256"
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY', '')
+EMAIL_FROM_NAME = os.environ.get('EMAIL_FROM_NAME', 'Kerala First Responders')
+EMAIL_FROM_ADDRESS = os.environ.get('EMAIL_FROM_ADDRESS', 'noreply@keralafirstresponder.org')
+# Legacy Emergent proxy (used if RESEND_API_KEY is not set)
 EMAIL_BASE_URL = "https://integrations.emergentagent.com"
 EMAIL_KEY = os.environ.get('EMERGENT_EMAIL_KEY', '')
-EMAIL_FROM_NAME = os.environ.get('EMAIL_FROM_NAME', 'Kerala First Responders')
 PUBLIC_BASE_URL = os.environ.get('PUBLIC_BASE_URL', '')
 
 app = FastAPI()
@@ -333,21 +336,42 @@ async def delete_candidate(candidate_id: str, admin = Depends(get_current_admin)
 
 # ============ Test Generation & Emails ============
 async def _send_email(to_email: str, subject: str, html: str):
-    if not EMAIL_KEY:
-        logger.warning("EMERGENT_EMAIL_KEY not set — skipping email")
-        return False
-    try:
-        async with httpx.AsyncClient(timeout=30) as ac:
-            resp = await ac.post(
-                f"{EMAIL_BASE_URL}/api/v1/email/send",
-                headers={"X-Email-Key": EMAIL_KEY},
-                json={"to": [to_email], "subject": subject, "html": html, "from_name": EMAIL_FROM_NAME},
-            )
-            resp.raise_for_status()
-        return True
-    except Exception as e:
-        logger.error(f"Email send failed to {to_email}: {e}")
-        return False
+    """Send email — prefers Resend (production), falls back to Emergent proxy (preview)."""
+    # Preferred: Resend direct
+    if RESEND_API_KEY:
+        try:
+            async with httpx.AsyncClient(timeout=30) as ac:
+                resp = await ac.post(
+                    "https://api.resend.com/emails",
+                    headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+                    json={
+                        "from": f"{EMAIL_FROM_NAME} <{EMAIL_FROM_ADDRESS}>",
+                        "to": [to_email],
+                        "subject": subject,
+                        "html": html,
+                    },
+                )
+                resp.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"Resend send failed to {to_email}: {e}")
+            return False
+    # Fallback: Emergent proxy (used only in the preview environment)
+    if EMAIL_KEY:
+        try:
+            async with httpx.AsyncClient(timeout=30) as ac:
+                resp = await ac.post(
+                    f"{EMAIL_BASE_URL}/api/v1/email/send",
+                    headers={"X-Email-Key": EMAIL_KEY},
+                    json={"to": [to_email], "subject": subject, "html": html, "from_name": EMAIL_FROM_NAME},
+                )
+                resp.raise_for_status()
+            return True
+        except Exception as e:
+            logger.error(f"Emergent proxy send failed to {to_email}: {e}")
+            return False
+    logger.info("Email disabled — no RESEND_API_KEY or EMERGENT_EMAIL_KEY set")
+    return False
 
 def _test_email_html(name: str, test_url: str, event_name: str, training_date: str) -> str:
     return f"""
@@ -635,6 +659,12 @@ async def categories():
 # ============ Seed ============
 @app.on_event("startup")
 async def startup_seed():
+    # Unique index to prevent race-condition double-registration under load
+    try:
+        await db.candidates.create_index([("email", 1), ("event_id", 1)], unique=True)
+    except Exception as e:
+        logger.warning(f"Could not create unique index (may already exist): {e}")
+
     # Seed admin
     if await db.admins.count_documents({}) == 0:
         await db.admins.insert_one({
