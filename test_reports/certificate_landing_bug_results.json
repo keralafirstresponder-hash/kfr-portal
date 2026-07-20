@@ -1,0 +1,71 @@
+{
+  "base_url": "https://responder-registry.preview.emergentagent.com",
+  "api": "https://responder-registry.preview.emergentagent.com/api",
+  "landing": {
+    "status": 200,
+    "has_mission_progress_text": false,
+    "has_certified_text": false,
+    "has_goal_text": false,
+    "percent_patterns_near_mission_progress": [],
+    "contains_0_00_percent": false
+  },
+  "admin_login": {
+    "status": 200,
+    "email": "admin@kfr.org"
+  },
+  "certificate": {
+    "candidate_id": "5d0a0fb75cf4dba3",
+    "token": "xGExxQ5xOpl-jPROI2TmC9U29H9IFSl5",
+    "certificate_id": "KFR-2026-B9382F",
+    "pdf_status": 200,
+    "rendered_size": [
+      587,
+      415
+    ],
+    "pdf_text": "",
+    "text_contains_ceo": false,
+    "text_contains_aster_medcity": false,
+    "text_contains_chairman": false,
+    "text_contains_program_director": false,
+    "regions": {
+      "date_icon": {
+        "blue": 29,
+        "strong_blue": 0,
+        "dark": 30,
+        "total": 729
+      },
+      "cert_id_icon": {
+        "blue": 13,
+        "strong_blue": 0,
+        "dark": 118,
+        "total": 702
+      },
+      "training_centre_icon": {
+        "blue": 11,
+        "strong_blue": 0,
+        "dark": 154,
+        "total": 837
+      },
+      "middle_signature": {
+        "blue": 0,
+        "strong_blue": 0,
+        "dark": 0,
+        "total": 9620
+      },
+      "left_signature": {
+        "blue": 0,
+        "strong_blue": 0,
+        "dark": 89,
+        "total": 7992
+      },
+      "right_signature": {
+        "blue": 0,
+        "strong_blue": 0,
+        "dark": 72,
+        "total": 9768
+      }
+    },
+    "pdf_path": "/app/test_reports/certificate_bug_verification_cfe14fa2.pdf",
+    "png_path": "/app/test_reports/certificate_bug_verification_cfe14fa2.png"
+  }
+}

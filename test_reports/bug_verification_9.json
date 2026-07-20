@@ -1,0 +1,59 @@
+{
+  "verdict": "not_fixed",
+  "user_reported_bug": "Home Page: Remove only the % of People Certified from the first page. Keep all other sections and design exactly as they are. Certificate: Remove the three blue information icons of Date of Training, Certificate ID, Training Center. Certificate Signatures: Remove only the CEO, Aster Medcity signature and designation. Keep the other two signatures exactly as they are.",
+  "summary": "No relevant testing skill found. Focused verification found the landing Mission Progress percent is removed and the middle CEO/Aster Medcity signature block is gone, with left/right signatures still present. However, the generated certificate PDF still visibly shows dark blue circular/blobby icon remnants beside Date of Training, Certificate ID, and Training Centre, so the user-reported certificate icon removal is not fixed.",
+  "backend_issues": {
+    "critical": [
+      {
+        "endpoint": "GET /api/certificate/{token}/pdf",
+        "issue": "Certificate PDF still contains recognizable dark blue circular/blobby remnants at all three information-icon positions to the left of DATE OF TRAINING, CERTIFICATE ID, and TRAINING CENTRE.",
+        "priority": "HIGH"
+      }
+    ],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Certificate PDF",
+        "issues": [
+          "The three blue information icons were not fully removed from /app/backend/assets/cert_template_clean.jpg; generated PDFs still show recognizable blue/dark icon artifacts."
+        ]
+      }
+    ]
+  },
+  "test_report_links": [
+    "/app/test_reports/analyze_cert_template_regions.py",
+    "/app/test_reports/cert_template_region_analysis.json",
+    "/app/test_reports/verify_certificate_landing_bug.py",
+    "/app/test_reports/certificate_landing_bug_results.json"
+  ],
+  "action_items": [
+    "Re-clean /app/backend/assets/cert_template_clean.jpg around the three info icon regions so no recognizable blue/dark circular icon blobs remain beside DATE OF TRAINING, CERTIFICATE ID, or TRAINING CENTRE.",
+    "Regenerate a passed-candidate certificate PDF and visually verify the info row is clean while left/right signatures remain and the middle CEO/Aster Medcity block stays absent."
+  ],
+  "critical_code_review_comments": [
+    "LandingPage.js removes the percent element from the Mission Progress block; Playwright confirmed the block still shows MISSION PROGRESS, certified count, Goal · 100,000, and no percent text.",
+    "certificate.py only overlays dynamic text onto cert_template_clean.jpg, so the remaining icon artifacts originate in the cleaned template asset, not in dynamic PDF drawing code.",
+    "The middle signature area in the generated PDF is clean, and the Chairman & Managing Director / Aster DM Healthcare and Program Director / Kerala First Responder (KFR) signatures remain visible."
+  ],
+  "updated_files": [
+    "/app/test_reports/analyze_cert_template_regions.py",
+    "/app/test_reports/cert_template_region_analysis.json",
+    "/app/test_reports/verify_certificate_landing_bug.py",
+    "/app/test_reports/certificate_landing_bug_results.json",
+    "/app/test_reports/bug_verification_9.json",
+    "/app/test_reports/iteration_9.json"
+  ],
+  "success_rate": {
+    "backend": "Certificate PDF flow works, but requested icon removal failed",
+    "frontend": "Landing page percent-removal check passed; certificate visual requirement failed"
+  },
+  "seed_data_creation": "Created passed QA candidates through real registration, admin generate-test, English assessment submit, and certificate PDF APIs; no mocked APIs used.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Use /app/test_reports/verify_certificate_landing_bug.py to create a fresh passed candidate and render the certificate PDF. The latest generated PNG/PDF evidence is in /app/test_reports but screenshot paths are intentionally not listed in test_report_links.",
+  "rca_of_the_issue": "The inpainted certificate template removed the middle signature but did not fully erase the three info icons. The generated PDF inherits visible blue/dark icon remnants directly from cert_template_clean.jpg. Repro: create/pass candidate, GET /api/certificate/{token}/pdf, render first page; inspect the info row above the signature area."
+}

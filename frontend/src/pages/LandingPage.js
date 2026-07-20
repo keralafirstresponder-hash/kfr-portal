@@ -74,7 +74,6 @@ export default function LandingPage() {
             <div className="mt-10 max-w-xl">
               <div className="flex items-baseline justify-between mb-3">
                 <div className="text-[10px] uppercase tracking-[0.3em] text-kfr-gold font-bold">Mission Progress</div>
-                <div className="text-white/60 text-xs">{progress.toFixed(2)}%</div>
               </div>
               <div className="flex items-end justify-between text-white/70 text-sm mb-2">
                 <span><span className="text-white font-display font-bold text-2xl mr-1" data-testid="hero-trained-count">{trained.toLocaleString()}</span> certified</span>
